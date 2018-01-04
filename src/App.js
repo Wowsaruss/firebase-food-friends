@@ -50,6 +50,10 @@ class App extends Component {
       username: ''
     });
   }
+  removeItem(itemId) {
+    const itemRef = firebase.database().ref(`/items/${itemId}`);
+    itemRef.remove();
+  }
 
   render() {
     console.log(this.state);
@@ -76,7 +80,9 @@ class App extends Component {
                   return (
                     <li key={item.id}>
                       <h3>{item.title}</h3>
-                      <p>brought by: {item.user}</p>
+                      <p>brought by: {item.user}
+                        <button onClick={() => this.removeItem(item.id)}>Remove Item</button>
+                      </p>
                     </li>
                   )
                 })}
